@@ -7,7 +7,10 @@ assets_env = Environment(app)
 
 @app.route('/get-nickname')
 def get_nickname():
-    return '' # Stub
+    import string
+    import random
+    CANDIDATE_CHARS = string.ascii_letters+string.digits  # lowercase and uppercase le
+    return u''.join(random.choice(CANDIDATE_CHARS) for _ in range(16))
 
 @app.route('/<path:filename>')
 def send_file(filename):
@@ -18,9 +21,10 @@ def send_file(filename):
 def index():
     if request.method == 'POST':
         import hashlib
+        uid = request.json['user_name']
         raw = request.json.__repr__()
         hash = hashlib.md5(raw).hexdigest()
-        return jsonify(result=raw + '<br>Hash: %s' % hash)
+        return jsonify(result=raw + '<br><br>Hash: %s<br>Evercookie: %s' % (hash, uid))
     return render_template("index.html")
 
 if __name__ == '__main__':
