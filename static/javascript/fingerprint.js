@@ -182,7 +182,8 @@ function postResults(fp)
         };
         //setProgbar(100, lt.progbar6);
         start_test_clicked = false;*/
-		$('a#fp-result').text(data.fp_hash);
+        $('body').append(data.result);
+		// $('a#fp-result').text(data.fp_hash);
 	  },
 	  dataType: "json"
 	});

@@ -21,7 +21,9 @@ def index():
         fp_data = request.json
         #print fp_data
         fp_hash = ssdeep.hash(fp_data.__repr__())
-        return jsonify(fp_hash = fp_hash)
+        fonts_hash = ssdeep.hash(fp_data['fonts_all'])
+        mimetypes_hash = ssdeep.hash(fp_data['mimetypes'])
+        return jsonify(result = render_template("result.html", fullhash=fp_hash, fonts_hash=fonts_hash, mimetypes_hash=mimetypes_hash))
     return render_template("index.html")
 
 if __name__ == '__main__':
