@@ -16,13 +16,13 @@ def send_file(filename):
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    import ssdeep
+    import hashlib
     if request.method == 'POST':
         fp_data = request.json
         #print fp_data
-        fp_hash = ssdeep.hash(fp_data.__repr__())
-        fonts_hash = ssdeep.hash(fp_data['fonts_all'])
-        mimetypes_hash = ssdeep.hash(fp_data['mimetypes'])
+        fp_hash = hashlib.md5(fp_data.__repr__()).hexdigest()
+        fonts_hash = hashlib.md5(fp_data['fonts_all']).hexdigest()
+        mimetypes_hash = hashlib.md5(fp_data['mimetypes']).hexdigest()
         return jsonify(result = render_template("result.html", fullhash=fp_hash, fonts_hash=fonts_hash, mimetypes_hash=mimetypes_hash))
     return render_template("index.html")
 
