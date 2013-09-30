@@ -17,7 +17,10 @@ def send_file(filename):
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        return jsonify(result=request.json.__repr__())
+        import hashlib
+        raw = request.json.__repr__()
+        hash = hashlib.md5(raw).hexdigest()
+        return jsonify(result=raw + '<br>Hash: %s' % hash)
     return render_template("index.html")
 
 if __name__ == '__main__':
