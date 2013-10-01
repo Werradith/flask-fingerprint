@@ -16,7 +16,8 @@ def get_nickname():
 def send_file(filename):
     return send_from_directory('static', filename)
 
-
+import pygeoip
+gi = pygeoip.GeoIP('GeoLiteCity.dat')
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
@@ -24,8 +25,9 @@ def index():
         uid = request.json['user_name']
         raw = request.json.__repr__()
         acc_hash = hashlib.md5(request.json['mimetypes'].encode('utf-8') + request.json['fonts_all'].encode('utf-8') + request.json['plugins_all'].encode('utf-8')).hexdigest()
+        geoip = gi.record_by_addr('128.68.5.216')
         inacc_hash = hashlib.md5(str(request.json['timezone']) + request.json['os'] + request.json['screen']).hexdigest()
-        return jsonify(result='Accurate hash: %s<br>Inaccurate hash: %s<br>Evercookie: %s' % (acc_hash, inacc_hash, uid))
+        return jsonify(result='Accurate hash: %s<br>Inaccurate hash: %s<br>Evercookie: %s<br>Geoip: %s' % (acc_hash, inacc_hash, uid, geoip))
     return render_template("index.html")
 
 if __name__ == '__main__':
