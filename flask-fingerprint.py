@@ -1,6 +1,7 @@
 #!/usr/bin/python
 from flask import Flask, send_from_directory, request, render_template, jsonify
 from flask.ext.assets import Environment, Bundle
+import os, sys
 app = Flask(__name__)
 app.debug = True
 assets_env = Environment(app)
@@ -16,9 +17,12 @@ def get_nickname():
 def send_file(filename):
     return send_from_directory('static', filename)
 
-import pygeoip
-gi = pygeoip.GeoIP('GeoLiteCity.dat') # http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz
-gi_org = pygeoip.GeoIP('GeoIPOrg.dat') # https://thepiratebay.sx/torrent/8521369/
+gi = None
+gi_org = None
+if os.path.exists('GeoLiteCity.dat') and os.path.exists('GeoIPOrg.dat'):
+    import pygeoip
+    gi = pygeoip.GeoIP('GeoLiteCity.dat') # http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz
+    gi_org = pygeoip.GeoIP('GeoIPOrg.dat') # https://thepiratebay.sx/torrent/8521369/
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
@@ -26,8 +30,8 @@ def index():
         uid = request.json['user_name']
         raw = request.json.__repr__()
         acc_hash = hashlib.md5(request.json['mimetypes'].encode('utf-8') + request.json['fonts_all'].encode('utf-8') + request.json['plugins_all'].encode('utf-8')).hexdigest()
-        geoip = gi.record_by_addr('128.68.5.216')
-        geoip_org = gi_org.org_by_addr('128.68.5.216')
+        geoip = gi.record_by_addr('128.68.5.216') if gi else 'Not available'
+        geoip_org = gi_org.org_by_addr('128.68.5.216') if gi_org else 'Not available'
         inacc_hash = hashlib.md5(str(request.json['timezone']) + request.json['os'] + request.json['screen']).hexdigest()
         return jsonify(result='Accurate hash: %s<br>Inaccurate hash: %s<br>Evercookie: %s<br>Geolite: %s<br>Geoip org: %s' % (acc_hash, inacc_hash, uid, geoip, geoip_org))
     return render_template("index.html")
