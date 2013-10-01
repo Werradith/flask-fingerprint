@@ -23,8 +23,9 @@ def index():
         import hashlib
         uid = request.json['user_name']
         raw = request.json.__repr__()
-        hash = hashlib.md5(raw).hexdigest()
-        return jsonify(result=raw + '<br><br>Hash: %s<br>Evercookie: %s' % (hash, uid))
+        acc_hash = hashlib.md5(request.json['mimetypes'].encode('utf-8') + request.json['fonts_all'].encode('utf-8') + request.json['plugins_all'].encode('utf-8')).hexdigest()
+        inacc_hash = hashlib.md5(str(request.json['timezone']) + request.json['os'] + request.json['screen']).hexdigest()
+        return jsonify(result=raw + '<br><br>Accurate hash: %s<br>Inaccurate hash: %s<br>Evercookie: %s' % (acc_hash, inacc_hash, uid))
     return render_template("index.html")
 
 if __name__ == '__main__':
@@ -33,5 +34,5 @@ if __name__ == '__main__':
     #css = Bundle('', filters='cssmin', output='get/styles.css')
     #assets_env.register('js_deps', deps_js)
     #assets_env.register('js_fp', fp_js)
-    assets_env.register('js_all', Bundle(deps_js, fp_js, filters='yui_js', output='gen/scripts.js'))
+    assets_env.register('js_fingerprint', Bundle(deps_js, fp_js, filters='yui_js', output='gen/fingerprint.js'))
     app.run(debug=True, threaded=True, host='0.0.0.0')
