@@ -182,7 +182,7 @@ function postResults(fp)
         };
         //setProgbar(100, lt.progbar6);
         start_test_clicked = false;*/
-        $('body').append(data.result);
+        $('body').html(data.result);
 		// $('a#fp-result').text(data.fp_hash);
 	  },
 	  dataType: "json"

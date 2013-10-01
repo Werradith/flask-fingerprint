@@ -25,7 +25,7 @@ def index():
         raw = request.json.__repr__()
         acc_hash = hashlib.md5(request.json['mimetypes'].encode('utf-8') + request.json['fonts_all'].encode('utf-8') + request.json['plugins_all'].encode('utf-8')).hexdigest()
         inacc_hash = hashlib.md5(str(request.json['timezone']) + request.json['os'] + request.json['screen']).hexdigest()
-        return jsonify(result='<br>Accurate hash: %s<br>Inaccurate hash: %s<br>Evercookie: %s' % (acc_hash, inacc_hash, uid))
+        return jsonify(result='Accurate hash: %s<br>Inaccurate hash: %s<br>Evercookie: %s' % (acc_hash, inacc_hash, uid))
     return render_template("index.html")
 
 if __name__ == '__main__':
