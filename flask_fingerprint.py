@@ -1,4 +1,3 @@
-#!/usr/bin/python
 # coding=utf-8
 from flask import Flask, request, render_template, jsonify
 from flask.ext.assets import Environment, Bundle
