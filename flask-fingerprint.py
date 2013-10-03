@@ -1,7 +1,8 @@
 #!/usr/bin/python
+# coding=utf-8
 from flask import Flask, send_from_directory, request, render_template, jsonify
 from flask.ext.assets import Environment, Bundle
-import os, sys
+import os
 app = Flask(__name__)
 app.debug = True
 assets_env = Environment(app)
@@ -39,7 +40,7 @@ def index():
 if __name__ == '__main__':
     deps_js = Bundle('javascript/swfobject.min.js', 'javascript/jquery.min.js', 'javascript/jquery-ui-1.8.16.custom.min.js', 'javascript/jquery.json-2.3.min.js', 'javascript/jquery.flash.js', 'javascript/evercookie/evercookie.js', 'javascript/sha1.js')
     fp_js = Bundle('javascript/plugindetect/plugindetect.js', 'javascript/fontdetect.js', 'javascript/fingerprint.js')
-    #css = Bundle('', filters='cssmin', output='get/styles.css')
+    #css = Bundle('style.css', filters='yui_css', output='get/styles.css')
     #assets_env.register('js_fingerprint_deps', deps_js)
     #assets_env.register('js_fingerprint_fp', fp_js)
     assets_env.register('js_fingerprint', Bundle(deps_js, fp_js, filters='yui_js', output='gen/fingerprint.js'))
