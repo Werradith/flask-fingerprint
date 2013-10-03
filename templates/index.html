@@ -6,11 +6,14 @@
     {% assets "js_fingerprint" %}
         <script type="text/javascript" src="{{ ASSET_URL }}"></script>
     {% endassets %}
+    <script type="text/javascript" src="{{ url_for('static', filename='javascript/whoer.packed.js') }}"></script>
   </head>
 <body>
     <noscript>
         <h1>Please enable javascript</h1>
     </noscript>
-    <h3>Processing...</h3>
+    <div id="fp-result"><h3>Processing...</h3></div>
+    <div id="flash_ip"></div>
+    {% include 'whoer_detection.html' %}
 </body>
 </html>

@@ -26,6 +26,9 @@ if os.path.exists('GeoIPCity.dat') and os.path.exists('GeoIPOrg.dat'):
     gi = pygeoip.GeoIP('GeoIPCity.dat') # http://rutracker.org/forum/viewtopic.php?t=4210999
     gi_org = pygeoip.GeoIP('GeoIPOrg.dat') # https://thepiratebay.sx/torrent/8521369/
 
+@app.route('/get-my-ip')
+def get_my_ip():
+    return 'Your IP: ' + request.remote_addr
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
