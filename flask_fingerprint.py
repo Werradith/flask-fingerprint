@@ -41,7 +41,7 @@ def index():
         geoip = gi.record_by_addr(client_ip) if gi else 'Not available'
         geoip_org = gi_org.org_by_addr(client_ip) if gi_org else 'Not available'
 
-        return jsonify(result='Browser hash: %s<br>System hash: %s<br>Evercookie: %s<br>GeoIP: %s<br>ISP: %s' % (acc_hash, inacc_hash, uid, geoip, geoip_org))
+        return jsonify(result='Navigator hash: %s<br>Browser hash: %s<br>System hash: %s<br>Evercookie: %s<br>GeoIP: %s<br>ISP: %s' % (request.json['navigator_hash'], acc_hash, inacc_hash, uid, geoip, geoip_org))
 
     return render_template("index.html")
 
