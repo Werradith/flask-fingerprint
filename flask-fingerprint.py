@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # coding=utf-8
-from flask import Flask, send_from_directory, request, render_template, jsonify
+from flask import Flask, request, render_template, jsonify
 from flask.ext.assets import Environment, Bundle
 from flask_util_js import FlaskUtilJs
 import os
@@ -36,7 +36,7 @@ def index():
         geoip = gi.record_by_addr(request.remote_addr) if gi else 'Not available'
         geoip_org = gi_org.org_by_addr(request.remote_addr) if gi_org else 'Not available'
         inacc_hash = hashlib.md5(str(request.json['timezone']) + request.json['os'] + request.json['screen']).hexdigest()
-        return jsonify(result='Accurate hash: %s<br>Inaccurate hash: %s<br>Evercookie: %s<br>GeoIP: %s<br>ISP: %s' % (acc_hash, inacc_hash, uid, geoip, geoip_org))
+        return jsonify(result='Browser hash: %s<br>System hash: %s<br>Evercookie: %s<br>GeoIP: %s<br>ISP: %s' % (acc_hash, inacc_hash, uid, geoip, geoip_org))
     return render_template("index.html")
 
 if __name__ == '__main__':
