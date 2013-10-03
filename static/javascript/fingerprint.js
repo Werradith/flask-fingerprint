@@ -13,7 +13,7 @@ function fontList(fonts) {}
 function userNamePrompt(onAccept)
 {
 	$.get('/get-nickname', function (res) {
-			onAccept(res)
+			onAccept(res);
 		});
     /* showPrompt(lt.userNamePromptTitle, lt.userNamePromptText, function (user_name)
     {
