@@ -2,10 +2,16 @@
 # coding=utf-8
 from flask import Flask, send_from_directory, request, render_template, jsonify
 from flask.ext.assets import Environment, Bundle
+from flask_util_js import FlaskUtilJs
 import os
 app = Flask(__name__)
 app.debug = True
 assets_env = Environment(app)
+fujs = FlaskUtilJs(app)
+
+@app.context_processor
+def inject_fujs():
+    return dict(fujs=fujs)
 
 @app.route('/get-nickname')
 def get_nickname():
@@ -13,10 +19,6 @@ def get_nickname():
     import random
     CANDIDATE_CHARS = string.ascii_letters+string.digits  # lowercase and uppercase le
     return u''.join(random.choice(CANDIDATE_CHARS) for _ in range(16))
-
-@app.route('/<path:filename>')
-def send_file(filename):
-    return send_from_directory('static', filename)
 
 gi = None
 gi_org = None

@@ -305,6 +305,7 @@ this.evercookie_userdata = function(name, value)
 
 this.evercookie_cache = function(name, value)
 {
+    return; // not realized
 	if (typeof(value) != "undefined")
 	{
 		// make sure we have evercookie session defined first
@@ -314,7 +315,7 @@ this.evercookie_cache = function(name, value)
 		var img = new Image();
 		img.style.visibility = 'hidden';
 		img.style.position = 'absolute';
-		img.src = '/javascript/evercookie/evercookie_cache.php?name=' + name;// + _link_rand;
+		img.src = flask_util.url_for('static', {filename:"javascript/evercookie/evercookie_cache.php"}) + '/?name=' + name;// + _link_rand;
 	}
 	else
 	{
@@ -325,7 +326,7 @@ this.evercookie_cache = function(name, value)
 		document.cookie = 'evercookie_cache=; expires=Mon, 20 Sep 2010 00:00:00 UTC; path=/';
 
 		$.ajax({
-			url: '/javascript/evercookie/evercookie_cache.php?name=' + name,// + _link_rand,
+			url: flask_util.url_for('static', {filename:'javascript/evercookie/evercookie_cache.php'}) + '?name=' + name,// + _link_rand,
 			success: function(data) {
 				// put our cookie back
 				document.cookie = 'evercookie_cache=' + origvalue + '; expires=Tue, 31 Dec 2030 00:00:00 UTC; path=/';
@@ -338,6 +339,7 @@ this.evercookie_cache = function(name, value)
 
 this.evercookie_etag = function(name, value)
 {
+    return; // not realized
 	if (typeof(value) != "undefined")
 	{
 		// make sure we have evercookie session defined first
@@ -347,7 +349,7 @@ this.evercookie_etag = function(name, value)
 		var img = new Image();
 		img.style.visibility = 'hidden';
 		img.style.position = 'absolute';
-		img.src = '/javascript/evercookie/evercookie_etag.php?name=' + name;// + _link_rand;
+		img.src = flask_util.url_for('static', {filename:'javascript/evercookie/evercookie_etag.php'}) + '?name=' + name;// + _link_rand;
 	}
 	else
 	{
@@ -359,7 +361,7 @@ this.evercookie_etag = function(name, value)
 		//document.cookie = 'evercookie_etag=; expires=Mon, 20 Sep 2010 00:00:00 UTC; path=/';
 
 		$.ajax({
-			url: '/javascript/evercookie/evercookie_etag.php?name=' + name,// + _link_rand,
+			url: flask_util.url_for('static', {filename:'javascript/evercookie/evercookie_etag.php'}) + '?name=' + name,// + _link_rand,
 			success: function(data) {
 				// put our cookie back
 				document.cookie = 'evercookie_etag=' + origvalue + '; expires=Tue, 31 Dec 2030 00:00:00 UTC; path=/';
@@ -389,11 +391,12 @@ this.evercookie_lso = function(name, value)
 	var attributes       = {};
 	attributes.id        = "myswf";
 	attributes.name      = "myswf";
-	swfobject.embedSWF("/javascript/evercookie/evercookie.swf", "swfcontainer", "1", "1", "9.0.0", false, flashvars, params, attributes);
+	swfobject.embedSWF(flask_util.url_for('static', {filename:"javascript/evercookie/evercookie.swf"}), "swfcontainer", "1", "1", "9.0.0", false, flashvars, params, attributes);
 }
 
 this.evercookie_png = function(name, value)
 {
+    return; // not realized
 	if (document.createElement('canvas').getContext)
 	{
 		if (typeof(value) != "undefined")
@@ -406,7 +409,7 @@ this.evercookie_png = function(name, value)
 			var img = new Image();
 			img.style.visibility = 'hidden';
 			img.style.position = 'absolute';
-			img.src = '/javascript/evercookie/evercookie_png.php?name=' + name;// + _link_rand;
+			img.src = flask_util.url_for('static', {filename:'javascript/evercookie/evercookie_png.php'}) + '?name=' + name;// + _link_rand;
 		}
 		else
 		{
@@ -426,7 +429,7 @@ this.evercookie_png = function(name, value)
 			var img = new Image();
 			img.style.visibility = 'hidden';
 			img.style.position = 'absolute';
-			img.src = '/javascript/evercookie/evercookie_png.php?name=' + name;// + _link_rand;
+			img.src = flask_util.url_for('static', {filename:'javascript/evercookie/evercookie_png.php'}) + '?name=' + name;// + _link_rand;
 			
 			img.onload = function()
 			{
@@ -545,7 +548,7 @@ this.evercookie_silverlight = function(name, value) {
      * Ok. so, I tried doing this the proper dom way, but IE chokes on appending anything in object tags (including params), so this
      * is the best method I found. Someone really needs to find a less hack-ish way. I hate the look of this shit.
     */
-        var source = "/javascript/evercookie/evercookie.xap";
+        var source = flask_util.url_for('static', {filename:"javascript/evercookie/evercookie.xap"});
         var minver = "4.0.50401.0";
         
         var initParam = "";

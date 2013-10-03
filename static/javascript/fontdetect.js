@@ -70,4 +70,4 @@ var Detector = function(){
 	}
 	this.detailedTest = debug;
 	this.test = test;	
-}
+};
