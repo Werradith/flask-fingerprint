@@ -333,7 +333,7 @@ function serialize(obj, tabs, rec)
 $('body').append('<div id="flashcontent"></div>');
 $('#flashcontent').flash(
 {
-    src : flask_util.url_for('static', {filename:"javascript/fonts2.swf"}), width : "1", height : "1", swliveconnect : "true", id : "flashfontshelper",
+    src : flask_util.url_for('static', {filename:"flash/fonts2.swf"}), width : "1", height : "1", swliveconnect : "true", id : "flashfontshelper",
     name : "flashfontshelper"
 },
 {
