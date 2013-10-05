@@ -1,10 +1,10 @@
 # coding=utf-8
-from flask import Flask, request, render_template, jsonify
+from flask import Flask, request, render_template, jsonify, session
 from flask.ext.assets import Environment, Bundle
 from flask_util_js import FlaskUtilJs
 import os
 app = Flask(__name__)
-app.debug = True
+app.config['SECRET_KEY'] = 'changeme'
 assets_env = Environment(app)
 fujs = FlaskUtilJs(app)
 
@@ -34,14 +34,19 @@ def index():
         uid = request.json['user_name']
         #raw = request.json.__repr__()
 
-        acc_hash = hashlib.md5(request.json['mimetypes'].encode('utf-8') + request.json['fonts_all'].encode('utf-8') + request.json['plugins_all'].encode('utf-8')).hexdigest()
-        inacc_hash = hashlib.md5(str(request.json['timezone']) + request.json['os'] + request.json['screen']).hexdigest()
+        acc_hash = hashlib.md5(request.json['mimetypes'].encode('utf-8') + request.json['fonts_all'].encode('utf-8') + request.json['plugins_all'].encode('utf-8')).hexdigest() # Browser
+        inacc_hash = hashlib.md5(str(request.json['timezone']) + request.json['os'] + request.json['screen']).hexdigest() # System
+        nav_hash = request.json['navigator_hash'] # Browser
+        session['fingerprint'] = acc_hash # Choose one of hashes
 
         client_ip = request.headers['X-Forwarded-For'] if request.headers.get('X-Forwarded-For') else request.remote_addr
         geoip = gi.record_by_addr(client_ip) if gi else 'Not available'
         geoip_org = gi_org.org_by_addr(client_ip) if gi_org else 'Not available'
 
-        return jsonify(result='Navigator hash: %s<br>Browser hash: %s<br>System hash: %s<br>Evercookie: %s<br>GeoIP: %s<br>ISP: %s' % (request.json['navigator_hash'], acc_hash, inacc_hash, uid, geoip, geoip_org))
+        fp_result = 'Navigator hash: %s<br>Browser hash: %s<br>System hash: %s<br>Evercookie: %s<br>GeoIP: %s<br>ISP: %s' % (nav_hash, acc_hash, inacc_hash, uid, geoip, geoip_org) # Formatted
+        session['fp_result'] = fp_result # Only for example
+
+        return jsonify(result=fp_result)
 
     return render_template("index.html")
 

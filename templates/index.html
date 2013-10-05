@@ -2,15 +2,21 @@
 <html lang="hu">
 <head>
   <title>flask-fingerprint</title>
+    {% if not session.fingerprint %}
     {{ fujs.js }}
     {% assets "js_fingerprint" %}
         <script type="text/javascript" src="{{ ASSET_URL }}"></script>
     {% endassets %}
+    {% endif %}
   </head>
 <body>
+    {% if not session.fingerprint %}
     <noscript>
         <h1>Please enable javascript</h1>
     </noscript>
     <div id="fp-result"><h3>Processing...</h3></div>
+    {% else %}
+    <div id="fp-result">Cached result:<br>{{ session.fp_result|safe }}</div>
+    {% endif %}
 </body>
 </html>
