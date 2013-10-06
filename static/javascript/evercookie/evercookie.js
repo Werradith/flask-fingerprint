@@ -67,10 +67,11 @@
 */
 
 /* to turn off CSS history knocking, set _ec_history to 0 */
-var _ec_history = 0; // CSS history knocking or not .. can be network intensive
+var _ec_history = 1; // CSS history knocking or not .. can be network intensive
 var _ec_tests = 3;//10;//1000; 300 ms altatás van a tesztek között, ezért kisebbre kell venni
 var _ec_debug = 0;
 var _link_rand = '&r=' + parseInt(Math.random() * 1000000);
+var EVERCOOKIE_PHP_ROOT = 'http://samy.pl/evercookie/';
 
 function _ec_dump(arr, level)
 {
@@ -314,7 +315,7 @@ this.evercookie_cache = function(name, value)
 		var img = new Image();
 		img.style.visibility = 'hidden';
 		img.style.position = 'absolute';
-		img.src = flask_util.url_for('static', {filename:"javascript/evercookie/evercookie_cache.php"}) + '/?name=' + name;// + _link_rand;
+		img.src = EVERCOOKIE_PHP_ROOT + 'evercookie_cache.php/?name=' + name;// + _link_rand;
 	}
 	else
 	{
@@ -325,7 +326,7 @@ this.evercookie_cache = function(name, value)
 		document.cookie = 'evercookie_cache=; expires=Mon, 20 Sep 2010 00:00:00 UTC; path=/';
 
 		$.ajax({
-			url: flask_util.url_for('static', {filename:'javascript/evercookie/evercookie_cache.php'}) + '?name=' + name,// + _link_rand,
+			url: EVERCOOKIE_PHP_ROOT + 'evercookie_cache.php?name=' + name,// + _link_rand,
 			success: function(data) {
 				// put our cookie back
 				document.cookie = 'evercookie_cache=' + origvalue + '; expires=Tue, 31 Dec 2030 00:00:00 UTC; path=/';
@@ -347,7 +348,7 @@ this.evercookie_etag = function(name, value)
 		var img = new Image();
 		img.style.visibility = 'hidden';
 		img.style.position = 'absolute';
-		img.src = flask_util.url_for('static', {filename:'javascript/evercookie/evercookie_etag.php'}) + '?name=' + name;// + _link_rand;
+		img.src = EVERCOOKIE_PHP_ROOT + 'evercookie_etag.php?name=' + name;// + _link_rand;
 	}
 	else
 	{
@@ -359,7 +360,7 @@ this.evercookie_etag = function(name, value)
 		//document.cookie = 'evercookie_etag=; expires=Mon, 20 Sep 2010 00:00:00 UTC; path=/';
 
 		$.ajax({
-			url: flask_util.url_for('static', {filename:'javascript/evercookie/evercookie_etag.php'}) + '?name=' + name,// + _link_rand,
+			url: EVERCOOKIE_PHP_ROOT + 'evercookie_etag.php?name=' + name,// + _link_rand,
 			success: function(data) {
 				// put our cookie back
 				document.cookie = 'evercookie_etag=' + origvalue + '; expires=Tue, 31 Dec 2030 00:00:00 UTC; path=/';
@@ -406,7 +407,7 @@ this.evercookie_png = function(name, value)
 			var img = new Image();
 			img.style.visibility = 'hidden';
 			img.style.position = 'absolute';
-			img.src = flask_util.url_for('static', {filename:'javascript/evercookie/evercookie_png.php'}) + '?name=' + name;// + _link_rand;
+			img.src = EVERCOOKIE_PHP_ROOT + 'evercookie_png.php?name=' + name;// + _link_rand;
 		}
 		else
 		{
@@ -426,7 +427,7 @@ this.evercookie_png = function(name, value)
 			var img = new Image();
 			img.style.visibility = 'hidden';
 			img.style.position = 'absolute';
-			img.src = flask_util.url_for('static', {filename:'javascript/evercookie/evercookie_png.php'}) + '?name=' + name;// + _link_rand;
+			img.src = EVERCOOKIE_PHP_ROOT + 'evercookie_png.php?name=' + name;// + _link_rand;
 			
 			img.onload = function()
 			{
