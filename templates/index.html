@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="hu">
 <head>
-  <title>Cross-browser fingerprinting test 2.0</title>
-    {% assets "js_all" %}
+  <title>flask-fingerprint</title>
+    {{ fujs.js }}
+    {% assets "js_fingerprint" %}
         <script type="text/javascript" src="{{ ASSET_URL }}"></script>
     {% endassets %}
   </head>
 <body>
-
+    <noscript>
+        <h1>Please enable javascript</h1>
+    </noscript>
+    <div id="fp-result"><h3>Processing...</h3></div>
 </body>
 </html>

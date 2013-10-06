@@ -149,14 +149,14 @@ this.get = function(name, cb, dont_reset)
 	$(document).ready(function() {
 		self._evercookie(name, cb, undefined, undefined, dont_reset);
 	});
-}
+};
 
 this.set = function(name, value)
 {
 	$(document).ready(function() {
 			self._evercookie(name, function() { }, value);
 	});
-}
+};
 
 this._evercookie = function(name, cb, value, i, dont_reset)
 {
@@ -282,7 +282,7 @@ this.evercookie_window = function(name, value)
 		else
 			return this.getFromStr(name, window.name);
 	} catch(e) { }
-}
+};
 
 this.evercookie_userdata = function(name, value)
 {
@@ -301,7 +301,7 @@ this.evercookie_userdata = function(name, value)
 			return elm.getAttribute(name);
 		}
 	} catch(e) { }
-}
+};
 
 this.evercookie_cache = function(name, value)
 {
@@ -314,7 +314,7 @@ this.evercookie_cache = function(name, value)
 		var img = new Image();
 		img.style.visibility = 'hidden';
 		img.style.position = 'absolute';
-		img.src = '/javascript/evercookie/evercookie_cache.php?name=' + name;// + _link_rand;
+		img.src = flask_util.url_for('static', {filename:"javascript/evercookie/evercookie_cache.php"}) + '/?name=' + name;// + _link_rand;
 	}
 	else
 	{
@@ -325,7 +325,7 @@ this.evercookie_cache = function(name, value)
 		document.cookie = 'evercookie_cache=; expires=Mon, 20 Sep 2010 00:00:00 UTC; path=/';
 
 		$.ajax({
-			url: '/javascript/evercookie/evercookie_cache.php?name=' + name,// + _link_rand,
+			url: flask_util.url_for('static', {filename:'javascript/evercookie/evercookie_cache.php'}) + '?name=' + name,// + _link_rand,
 			success: function(data) {
 				// put our cookie back
 				document.cookie = 'evercookie_cache=' + origvalue + '; expires=Tue, 31 Dec 2030 00:00:00 UTC; path=/';
@@ -334,7 +334,7 @@ this.evercookie_cache = function(name, value)
 			}
 		});
 	}
-}
+};
 
 this.evercookie_etag = function(name, value)
 {
@@ -347,7 +347,7 @@ this.evercookie_etag = function(name, value)
 		var img = new Image();
 		img.style.visibility = 'hidden';
 		img.style.position = 'absolute';
-		img.src = '/javascript/evercookie/evercookie_etag.php?name=' + name;// + _link_rand;
+		img.src = flask_util.url_for('static', {filename:'javascript/evercookie/evercookie_etag.php'}) + '?name=' + name;// + _link_rand;
 	}
 	else
 	{
@@ -359,7 +359,7 @@ this.evercookie_etag = function(name, value)
 		//document.cookie = 'evercookie_etag=; expires=Mon, 20 Sep 2010 00:00:00 UTC; path=/';
 
 		$.ajax({
-			url: '/javascript/evercookie/evercookie_etag.php?name=' + name,// + _link_rand,
+			url: flask_util.url_for('static', {filename:'javascript/evercookie/evercookie_etag.php'}) + '?name=' + name,// + _link_rand,
 			success: function(data) {
 				// put our cookie back
 				document.cookie = 'evercookie_etag=' + origvalue + '; expires=Tue, 31 Dec 2030 00:00:00 UTC; path=/';
@@ -368,7 +368,7 @@ this.evercookie_etag = function(name, value)
 			}
 		});
 	}
-}
+};
 
 this.evercookie_lso = function(name, value)
 {
@@ -389,8 +389,8 @@ this.evercookie_lso = function(name, value)
 	var attributes       = {};
 	attributes.id        = "myswf";
 	attributes.name      = "myswf";
-	swfobject.embedSWF("/javascript/evercookie/evercookie.swf", "swfcontainer", "1", "1", "9.0.0", false, flashvars, params, attributes);
-}
+	swfobject.embedSWF(flask_util.url_for('static', {filename:"javascript/evercookie/evercookie.swf"}), "swfcontainer", "1", "1", "9.0.0", false, flashvars, params, attributes);
+};
 
 this.evercookie_png = function(name, value)
 {
@@ -406,7 +406,7 @@ this.evercookie_png = function(name, value)
 			var img = new Image();
 			img.style.visibility = 'hidden';
 			img.style.position = 'absolute';
-			img.src = '/javascript/evercookie/evercookie_png.php?name=' + name;// + _link_rand;
+			img.src = flask_util.url_for('static', {filename:'javascript/evercookie/evercookie_png.php'}) + '?name=' + name;// + _link_rand;
 		}
 		else
 		{
@@ -426,7 +426,7 @@ this.evercookie_png = function(name, value)
 			var img = new Image();
 			img.style.visibility = 'hidden';
 			img.style.position = 'absolute';
-			img.src = '/javascript/evercookie/evercookie_png.php?name=' + name;// + _link_rand;
+			img.src = flask_util.url_for('static', {filename:'javascript/evercookie/evercookie_png.php'}) + '?name=' + name;// + _link_rand;
 			
 			img.onload = function()
 			{
@@ -454,7 +454,7 @@ this.evercookie_png = function(name, value)
 			}	
 		}
 	}
-}
+};
 
 this.evercookie_local_storage = function(name, value)
 {
@@ -469,7 +469,7 @@ this.evercookie_local_storage = function(name, value)
 		}
 	}
 	catch (e) { }
-}
+};
 
 this.evercookie_database_storage = function(name, value)
 {
@@ -507,7 +507,7 @@ this.evercookie_database_storage = function(name, value)
 			}
 		}
 	} catch(e) { }
-}
+};
 
 this.evercookie_session_storage = function(name, value)
 {
@@ -521,7 +521,7 @@ this.evercookie_session_storage = function(name, value)
 				return sessionStorage.getItem(name);
 		}
 	} catch(e) { }
-}
+};
 
 this.evercookie_global_storage = function(name, value)
 {
@@ -537,7 +537,8 @@ this.evercookie_global_storage = function(name, value)
 				return eval("globalStorage[host]." + name);
 		} catch(e) { }
 	}
-}
+    return ''
+};
 this.evercookie_silverlight = function(name, value) {
     /*
      * Create silverlight embed
@@ -545,7 +546,7 @@ this.evercookie_silverlight = function(name, value) {
      * Ok. so, I tried doing this the proper dom way, but IE chokes on appending anything in object tags (including params), so this
      * is the best method I found. Someone really needs to find a less hack-ish way. I hate the look of this shit.
     */
-        var source = "/javascript/evercookie/evercookie.xap";
+        var source = flask_util.url_for('static', {filename:"javascript/evercookie/evercookie.xap"});
         var minver = "4.0.50401.0";
         
         var initParam = "";
@@ -567,7 +568,7 @@ this.evercookie_silverlight = function(name, value) {
             //'</a>' +
         '</object>';
         document.body.innerHTML+=html;
-}
+};
 
 // public method for encoding
 this.encode = function (input) {
@@ -601,7 +602,7 @@ this.encode = function (input) {
 	}
 
 	return output;
-}
+};
 
 // public method for decoding
 this.decode = function (input) {
@@ -637,7 +638,7 @@ this.decode = function (input) {
 
 	return output;
 
-}
+};
 
 // private method for UTF-8 encoding
 this._utf8_encode = function (string) {
@@ -664,7 +665,7 @@ this._utf8_encode = function (string) {
 	}
 
 	return utftext;
-}
+};
 
 // private method for UTF-8 decoding
 this._utf8_decode = function (utftext) {
@@ -695,7 +696,7 @@ this._utf8_decode = function (utftext) {
 	}
 
 	return string;
-}
+};
 
 // this is crazy but it's 4am in dublin and i thought this would be hilarious
 // blame the guinness
@@ -760,7 +761,8 @@ this.evercookie_history = function(name, value)
 			return this.decode(val);
 		}
 	}
-}
+    return ''
+};
 
 this.createElem = function(type, name, append)
 {
@@ -779,14 +781,14 @@ this.createElem = function(type, name, append)
 		document.body.appendChild(el);
 
 	return el;
-}
+};
 
 this.createIframe = function(url, name)
 {
 	var el = this.createElem('iframe', name, 1);
 	el.setAttribute('src', url);
 	return el;
-}
+};
 
 // wait for our swfobject to appear (swfobject.js to load)
 this.waitForSwf = function(i)
@@ -799,7 +801,7 @@ this.waitForSwf = function(i)
 	// wait for ~2 seconds for swfobject to appear
 	if (i < _ec_tests && typeof swfobject == 'undefined')
 		setTimeout(function() { waitForSwf(i) }, 300);
-}
+};
 
 this.evercookie_cookie = function(name, value)
 {
@@ -808,10 +810,11 @@ this.evercookie_cookie = function(name, value)
 		// expire the cookie first
 		document.cookie = name + '=; expires=Mon, 20 Sep 2010 00:00:00 UTC; path=/';
 		document.cookie = name + '=' + value + '; expires=Tue, 31 Dec 2030 00:00:00 UTC; path=/';
+        return ''
 	}
 	else
 		return this.getFromStr(name, document.cookie);
-}
+};
 
 // get value from param-like string (eg, "x=y&name=VALUE")
 this.getFromStr = function(name, text)
@@ -829,7 +832,7 @@ this.getFromStr = function(name, text)
 		if (c.indexOf(nameEQ) == 0)
 			return c.substring(nameEQ.length, c.length);
 	}
-}
+};
 
 this.getHost = function()
 {
@@ -837,7 +840,7 @@ this.getHost = function()
 	if (domain.indexOf('www.') == 0)
 		domain = domain.replace('www.', '');
 	return domain;
-}
+};
 
 this.toHex = function(str)
 {
@@ -853,7 +856,7 @@ this.toHex = function(str)
         r += h;
     }
     return r;
-}
+};
 
 this.fromHex = function(str)
 {
@@ -867,7 +870,7 @@ this.fromHex = function(str)
         e = s;
     }
     return r;
-}
+};
 
 /* 
  * css history knocker (determine what sites your visitors have been to)
@@ -902,7 +905,7 @@ this.hasVisited = function(url)
 		this._testURL("https://" + url, this.no_color) ||
 		this._testURL("http://www." + url, this.no_color) ||
 		this._testURL("https://www." + url, this.no_color);
-}
+};
 
 /* create our anchor tag */
 var _link = this.createElem('a', '_ec_rgb_link');
@@ -951,7 +954,7 @@ this._getRGB = function(u, test_color)
 		color = _link.currentStyle['color'];
 
 	return color;
-}
+};
 
 this._testURL = function(url, no_color)
 {
