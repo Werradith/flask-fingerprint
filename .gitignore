@@ -1,0 +1,7 @@
+.idea/
+GeoIPCity.dat
+GeoIPOrg.dat
+*.pyc
+static/.webassets-cache/
+trash/
+static/gen/
