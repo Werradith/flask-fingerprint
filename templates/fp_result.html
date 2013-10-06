@@ -1,0 +1,51 @@
+<h2>Summary:</h2>
+<table border="1">
+    <tr>
+        <td>System hash</td>
+        <td>{{ fp_hashes['system'] }}</td>
+    </tr>
+    <tr>
+        <td>Browser hash</td>
+        <td>{{ fp_hashes['browser'] }}</td>
+    </tr>
+    <tr>
+        <td>Browser hash #2</td>
+        <td>{{ fp_hashes['browser_hdrs'] }}</td>
+    </tr>
+    <tr>
+        <td>Evercookie</td>
+        <td>{{ fp['user_name'] }}</td>
+    </tr>
+</table>
+
+{% if gi.get('city') %}
+    <h2>GeoIP data:</h2>
+    <table border="1">
+    <tr>
+        <td>IP Address:</td>
+        <td>{{ gi['client_ip'] }}</td>
+    </tr>
+    {% if gi.get('org') %}
+        <tr>
+            <td>ISP</td>
+            <td>{{ gi['org'] }}</td>
+        </tr>
+    {% endif %}
+    {% for key, value in gi['city'].iteritems() %}
+        <tr>
+            <td>{{ key }}</td>
+            <td>{{ value }}</td>
+        </tr>
+    {% endfor %}
+    </table>
+{% endif %}
+
+<h2>Reported data:</h2>
+<table border="1">
+    {% for key, value in fp.iteritems() %}
+        <tr>
+        <td>{{ key }}</td>
+        <td>{{ value }}</td>
+        </tr>
+    {% endfor %}
+</table>
