@@ -8,7 +8,7 @@ DEBUG_PORT = 5000
 
 if __name__ == '__main__':
     import sys
-    from flask_fingerprint import app
+    from app import app
     if '-debug' in sys.argv:
         app.run(port=DEBUG_PORT, debug=True, host=DEBUG_HOST)
     else:

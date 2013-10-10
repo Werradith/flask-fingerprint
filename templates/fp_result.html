@@ -1,3 +1,9 @@
+{% if new_uid %}
+    <script type="text/javascript">
+        set_new_uid('{{ new_uid }}');
+        $('#uid').text('{{ new_uid }}');
+    </script>
+{% endif %}
 <h2>Summary:</h2>
 <table border="1">
     <tr>
@@ -14,7 +20,7 @@
     </tr>
     <tr>
         <td>Evercookie</td>
-        <td>{{ fp['user_name'] }}</td>
+        <td id="uid">{{ fp['uid'] }}</td>
     </tr>
 </table>
 

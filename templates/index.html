@@ -3,7 +3,7 @@
 <head>
   <title>flask-fingerprint</title>
     {{ fujs.js }}
-    {% assets "js_fingerprint" %}
+    {% assets "js_main", "js_fingerprint" %}
         <script type="text/javascript" src="{{ ASSET_URL }}"></script>
     {% endassets %}
   </head>
