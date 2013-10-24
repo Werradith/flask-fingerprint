@@ -38,8 +38,8 @@ def index():
         fp_hashes['browser'] = hashlib.md5(request.json['mimetypes'].encode('utf-8') + (request.json['fontlist'] or request.json['fonts_all']).encode('utf-8') + request.json['navigator_hash'].encode('utf-8')).hexdigest()
         fp_hashes['system'] = hashlib.md5(str(request.json['timezone']) + request.json['os'] + request.json['screen']).hexdigest()
         #fp_hashes['navigator'] = request.json['navigator_hash']
-        fp_hashes['browser_hdrs'] = hashlib.md5(request.headers['Accept'] + request.headers['Accept-Language'] + request.headers['Accept-Encoding']).hexdigest()
-
+        fp_hashes['browser_hdrs'] = hashlib.md5((request.headers.get('Accept') or '').encode('utf-8') + (request.headers.get('Accept-Language') or '').encode('utf-8') + (request.headers.get('Accept-Encoding') or '').encode('utf-8')).hexdigest()
+        fp_hashes['system_browser'] = hashlib.md5(fp_hashes['system'] + fp_hashes['browser_hdrs']).hexdigest()
 
         geoip_result['client_ip'] = request.headers['X-Forwarded-For'] if request.headers.get('X-Forwarded-For') else request.remote_addr
         geoip_result['city'] = gi.record_by_addr(geoip_result['client_ip']) if gi else None
